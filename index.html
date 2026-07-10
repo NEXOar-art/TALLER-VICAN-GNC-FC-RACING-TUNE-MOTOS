@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Taller Vican GNC - FC Racing Tune Motos. Expertos en mecánica integral, GNC, remapeo y servicio de motos.">
 <meta name="theme-color" content="#0A0A0A">
-<title>TALLER VICAN GNC- FC RACING TUNE MOTOS</title>
+<title>TALLER VICAN GNC - FC RACING TUNE MOTOS</title>
 
 <!-- Preconnect para mejor rendimiento-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,22 +49,17 @@ tailwind.config = {
             animation: {
                 'float': 'float 6s ease-in-out infinite',
                 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'scroll-banner': 'scroll-banner 40s linear infinite',
                 'spin-slow': 'spin 8s linear infinite',
-                'zoom-bg': 'zoom-bg 20s ease-in-out infinite alternate',
+                'bg-pan': 'bg-pan 30s ease-in-out infinite alternate',
             },
             keyframes: {
                 float: {
                     '0%, 100%': { transform: 'translateY(0)' },
                     '50%': { transform: 'translateY(-12px)' },
                 },
-                'scroll-banner': {
-                    '0%': { transform: 'translateX(0)' },
-                    '100%': { transform: 'translateX(-50%)' }
-                },
-                'zoom-bg': {
-                    '0%': { transform: 'scale(1)' },
-                    '100%': { transform: 'scale(1.15)' }
+                'bg-pan': {
+                    '0%': { transform: 'scale(1.1) translate(0, 0)' },
+                    '100%': { transform: 'scale(1.25) translate(-2%, 2%)' }
                 }
             }
         }
@@ -94,7 +89,7 @@ tailwind.config = {
         opacity: 0.15;
         z-index: -2;
         filter: brightness(0.6) contrast(1.2);
-        animation: zoom-bg 20s ease-in-out infinite alternate;
+        animation: bg-pan 30s ease-in-out infinite alternate;
     }
     
     .glass-card {
@@ -107,8 +102,8 @@ tailwind.config = {
     }
     .glass-card:hover {
         border-color: rgba(255, 53, 53, 0.4);
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 53, 53, 0.2);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 53, 53, 0.2);
     }
     
     .glow-text {
@@ -135,6 +130,7 @@ tailwind.config = {
         box-shadow: 0 20px 50px rgba(255, 53, 53, 0.5), 0 0 40px rgba(255, 53, 53, 0.4);
     }
 
+    /* Video Logo Styles - Más Grande */
     .hero-logo-wrapper {
         display: flex;
         justify-content: center;
@@ -151,16 +147,24 @@ tailwind.config = {
         object-fit: cover;
         border-radius: 50%;
         border: 8px solid #FF3535;
-        box-shadow: 0 0 60px rgba(255, 53, 53, 0.7), inset 0 0 30px rgba(255, 53, 53, 0.3);
+        box-shadow: 0 0 60px rgba(255, 53, 53, 0.6), inset 0 0 40px rgba(255, 53, 53, 0.3);
         transition: all 0.5s ease;
         background: #000;
     }
 
-    .hero-logo-video:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 90px rgba(255, 53, 53, 0.9), 0 0 140px rgba(255, 53, 53, 0.5);
+    @media (max-width: 768px) {
+        .hero-logo-video {
+            width: 300px;
+            height: 300px;
+        }
     }
 
+    .hero-logo-video:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 80px rgba(255, 53, 53, 0.8), 0 0 120px rgba(255, 53, 53, 0.5);
+    }
+
+    /* Circular Action Button */
     .btn-circular-action {
         width: 220px;
         height: 220px;
@@ -181,6 +185,7 @@ tailwind.config = {
         cursor: pointer;
         position: relative;
         overflow: hidden;
+        z-index: 2;
     }
     
     .btn-circular-action::after {
@@ -189,41 +194,52 @@ tailwind.config = {
         top: -50%; left: -50%; width: 200%; height: 200%;
         background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
         animation: spin-slow 8s linear infinite;
+        z-index: -1;
     }
 
     .btn-circular-action:hover {
-        transform: scale(1.1);
+        transform: scale(1.1) rotate(5deg);
         box-shadow: 0 0 60px rgba(37, 211, 102, 0.9);
     }
     
-    .banner {
+    /* Banner Estilo Ticker Tape / Stock Ticker (Loop Infinito Perfecto) */
+    .ticker-wrap {
         width: 100%;
         background: #111;
         color: #fff;
-        font-size: 1.1em;
+        font-size: 1em;
         font-weight: bold;
         overflow: hidden;
-        white-space: nowrap;
-        padding: 12px 0;
+        padding: 10px 0;
         border-top: 3px solid #FF3535;
         border-bottom: 3px solid #FF3535;
         position: fixed;
         top: 0;
         left: 0;
         z-index: 100;
-    }
-    
-    .banner-track {
-        display: inline-flex;
-        width: max-content;
-        animation: scroll-banner 60s linear infinite;
-    }
-    
-    .banner-track span {
-        margin: 0 30px;
         text-transform: uppercase;
     }
+    
+    .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: ticker-scroll 45s linear infinite; /* Velocidad fluida y continuo */
+    }
+    
+    .ticker-item {
+        margin: 0 30px;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+    .ticker-item.red-text { color: #FF3535; }
 
+    @keyframes ticker-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* Se mueve exactamente la mitad para loop infinito */
+    }
+
+    /* Inputs Forms */
     .form-field {
         margin-bottom: 1rem;
     }
@@ -248,8 +264,10 @@ tailwind.config = {
     .field-input:focus {
         border-color: #FF3535;
         background: rgba(26, 26, 26, 0.95);
+        box-shadow: 0 0 10px rgba(255, 53, 53, 0.3);
     }
     
+    /* Tab System for Forms */
     .tab-btn {
         padding: 1rem 2rem;
         font-weight: bold;
@@ -257,6 +275,8 @@ tailwind.config = {
         color: #888;
         border-bottom: 3px solid transparent;
         transition: all 0.3s;
+        cursor: pointer;
+        background: transparent;
     }
     .tab-btn.active {
         color: #FF3535;
@@ -274,7 +294,7 @@ tailwind.config = {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .parallax-section {
+    .parallax-bg {
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
@@ -284,39 +304,34 @@ tailwind.config = {
 </head>
 <body class="antialiased relative">
 
-<!-- Banner Automático con texto en mayúscula -->
-<div class="banner">
-    <div class="banner-track">
-        <span>USA NAFTA PREMIUM</span>
-        <span>CAMBIO DE BUJIAS CADA 6 MESES</span>
-        <span>SCANEA LA UNIDAD CADA 6 MESES</span>
-        <span>PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO,NO DEJES PASAR👇</span>
-        <span>👃 Olor a gas</span>
-        <span>🔄 Dificultas al pasar de nafta a gas</span>
-        <span>🪫 Pérdida de potencia</span>
-        <span>🚫 Regula mal o se apaga a gas</span>
-        <span>⛽️ Aumento de consumo</span>
-        <!-- Duplicado para scroll continuo -->
-        <span>USA NAFTA PREMIUM</span>
-        <span>CAMBIO DE BUJIAS CADA 6 MESES</span>
-        <span>SCANEA LA UNIDAD CADA 6 MESES</span>
-        <span>PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO,NO DEJES PASAR👇</span>
-        <span>👃 Olor a gas</span>
-        <span>🔄 Dificultas al pasar de nafta a gas</span>
-        <span>🪫 Pérdida de potencia</span>
-        <span>🚫 Regula mal o se apaga a gas</span>
-        <span>⛽️ Aumento de consumo</span>
+<!-- Banner Ticker Tape (Loop Infinito) -->
+<div class="ticker-wrap">
+    <div class="ticker-track">
+        <!-- Grupo 1 -->
+        <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
+        <span class="ticker-item">👃 OLOR A GAS</span>
+        <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
+        <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
+        <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
+        <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
+        <!-- Grupo 2 (Duplicado exacto para loop infinito continuo) -->
+        <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
+        <span class="ticker-item">👃 OLOR A GAS</span>
+        <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
+        <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
+        <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
+        <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
     </div>
 </div>
 
 <!-- Navbar -->
-<nav class="fixed w-full z-50 top-[52px] bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+<nav class="fixed w-full z-50 top-[45px] bg-[#0A0A0A]/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
     <div class="container mx-auto px-4 h-20 flex items-center justify-between">
-        <a href="#" class="font-display font-bold text-xl md:text-2xl gradient-text tracking-tight uppercase drop-shadow-lg">
-            VICAN GNC <span class="text-white">|</span> FC RACING
+        <a href="#" class="font-display font-bold text-lg md:text-2xl gradient-text tracking-tight uppercase drop-shadow-lg">
+            TALLER VICAN GNC <span class="text-white">|</span> FC RACING
         </a>
         <div class="flex items-center gap-4">
-            <div id="status-badge" class="flex items-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide bg-white/5 border border-white/10">
+            <div id="status-badge" class="hidden md:flex items-center px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide bg-white/5 border border-white/10">
                 <span id="status-dot" class="w-2 h-2 rounded-full mr-2.5 bg-gray-500 shadow-[0_0_8px_rgba(255,255,255,0.5)]"></span>
                 <span id="status-text" class="text-gray-300">Verificando estado...</span>
             </div>
@@ -329,7 +344,7 @@ tailwind.config = {
 
 <!-- Botones Flotantes -->
 <div class="fixed bottom-8 right-4 z-50 flex flex-col gap-3">
-    <a href="https://api.whatsapp.com/send?phone=5493543546389" target="_blank" class="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
+    <a href="https://api.whatsapp.com/send?phone=54903543546389" target="_blank" class="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 </div>
@@ -342,7 +357,7 @@ tailwind.config = {
             TALLER VICAN GNC<br><span class="gradient-text">FC RACING TUNE MOTOS</span>
         </h1>
         
-        <!-- Video Logo Central (Aumentado) -->
+        <!-- Video Logo Central Más Grande -->
         <div class="hero-logo-wrapper" data-aos="zoom-in" data-aos-delay="200">
             <video src="VIDEOVICAN.mp4" autoplay loop muted playsinline class="hero-logo-video"></video>
         </div>
@@ -362,8 +377,8 @@ tailwind.config = {
     </div>
 </header>
 
-<!-- SECCIÓN: PRUEBA HIDRÁULICA (Efecto Parallax/Scrolling) -->
-<section class="parallax-section relative py-32 flex items-center justify-center min-h-[90vh]" style="background-image: url('prueba hidraulica.png'); box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.7);">
+<!-- SECCIÓN: PRUEBA HIDRÁULICA (Efecto Scrolling / Parallax) -->
+<section class="relative py-32 min-h-[90vh] flex items-center justify-center parallax-bg" style="background-image: url('prueba hidraulica.png'); box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.75);">
     <div class="container mx-auto px-4 text-center z-10">
         <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg" data-aos="fade-down">
             PRUEBA HIDRÁULICA
@@ -373,14 +388,14 @@ tailwind.config = {
         </p>
         
         <div class="flex justify-center" data-aos="zoom-in" data-aos-delay="300">
-            <a href="https://api.whatsapp.com/send?phone=5493543546389&text=AHI%20AGREGO%20MIS%20DATOS%20DE%20DNI%20Y%20CEDULA%20VERDE%20(FRENTE%20Y%20DORSO)%20PARA%20PEDIR%20MI%20OBLEA." target="_blank" class="btn-circular-action">
+            <a href="https://api.whatsapp.com/send?phone=54903543546389&text=Hola%20quiero%20PEDIR%20MI%20OBLEA.%20AHI%20AGREGO%20MIS%20DATOS%20DE%20DNI%20Y%20CEDULA%20VERDE.%20Adjunto%20imagenes%20del%20DNI%20(FRENTE%20Y%20DORSO)%20y%20TARJETA%20VERDE%20(FRENTE%20Y%20DORSO)." target="_blank" class="btn-circular-action">
                 <span>PEDIR</span>
                 <span>MI</span>
-                <span class="text-[#FF3535] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">OBLEA</span>
+                <span style="color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.8);">OBLEA</span>
             </a>
         </div>
-        <p class="text-sm text-gray-300 mt-6 bg-black/50 p-2 rounded-lg inline-block backdrop-blur-sm">
-            <i class="fa-solid fa-camera"></i> Te pediremos foto de DNI y Cédula Verde (Frente y Dorso).
+        <p class="text-sm text-gray-300 mt-8 bg-black/60 p-3 rounded-lg inline-block backdrop-blur-sm" data-aos="fade-up" data-aos-delay="400">
+            <i class="fa-solid fa-camera mr-2"></i> Te pediremos foto de DNI y Cédula Verde (Frente y Dorso).
         </p>
     </div>
 </section>
@@ -390,36 +405,49 @@ tailwind.config = {
     <div class="container mx-auto px-4">
         
         <!-- Taller Vican GNC -->
-        <div class="mb-20">
+        <div class="mb-24">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-4xl md:text-5xl font-display font-bold gradient-text uppercase mb-4">Taller Vican GNC</h2>
-                <p class="text-gray-400">Soluciones integrales para tu vehículo y equipo de gas.</p>
+                <p class="text-gray-400 text-lg">Soluciones integrales para tu vehículo y equipo de gas.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Servicio Mecánico">
-                    <h3 class="text-xl font-bold text-white mb-2">Servicio Mecánico</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Cards (Imágenes reemplazadas por contexto de taller automotor) -->
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio Mecánico Automotor">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio Mecánico</h3>
                 </div>
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Inyección Eléctrica">
-                    <h3 class="text-xl font-bold text-white mb-2">Inyección Eléctrica</h3>
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1597260056789-19c6d1b64c1c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Inyección Eléctrica y Bujías">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Eléctrica</h3>
                 </div>
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1625296068831-29653835694b?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Tren Delantero">
-                    <h3 class="text-xl font-bold text-white mb-2">Tren Delantero</h3>
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Tren Delantero y Suspensión">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Tren Delantero</h3>
                 </div>
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="400">
-                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Alineado 3D">
-                    <h3 class="text-xl font-bold text-white mb-2">Alineado 3D</h3>
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Alineado 3D y Balanceo">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Alineado 3D & Balanceado</h3>
                 </div>
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="500">
-                    <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Balanceado y Gomería">
-                    <h3 class="text-xl font-bold text-white mb-2">Balanceado y Servicio de Gomería</h3>
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Gomería y Cubiertas">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio de Gomería</h3>
                 </div>
-                <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="600">
-                    <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=500" class="w-full h-40 object-cover rounded-xl mb-4" alt="Lubricentro">
-                    <h3 class="text-xl font-bold text-white mb-2">Lubricentro</h3>
+                <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="600">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1607860106126-4d5f5e3530b2?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Lubricentro y Aceite">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Lubricentro</h3>
                 </div>
             </div>
         </div>
@@ -428,21 +456,27 @@ tailwind.config = {
         <div>
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-white uppercase mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">FC Racing Tune</h2>
-                <p class="text-gray-400">Especialistas en performance y potenciación.</p>
+                <p class="text-gray-400 text-lg">Especialistas en performance y potenciación.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-6 text-center border-t-4 border-t-blue-500" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=500" class="w-full h-48 object-cover rounded-xl mb-4" alt="Motos">
-                    <h3 class="text-xl font-bold text-white mb-2">Servicio Mecánico de Motos</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 text-center group border-t-4 border-t-blue-500" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=500" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" alt="Motos">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Mecánica de Motos</h3>
                 </div>
-                <div class="glass-card p-6 text-center border-t-4 border-t-red-500" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?q=80&w=500" class="w-full h-48 object-cover rounded-xl mb-4" alt="Banco de pruebas">
-                    <h3 class="text-xl font-bold text-white mb-2">Banco de Pruebas a Rodillo</h3>
+                <div class="glass-card p-6 text-center group border-t-4 border-t-red-500" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?q=80&w=500" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" alt="Banco de pruebas">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Banco de Pruebas a Rodillo</h3>
                 </div>
-                <div class="glass-card p-6 text-center border-t-4 border-t-purple-500" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=500" class="w-full h-48 object-cover rounded-xl mb-4" alt="Remapeo">
-                    <h3 class="text-xl font-bold text-white mb-2">Remapeo de Motos, Autos y Chatas</h3>
+                <div class="glass-card p-6 text-center group border-t-4 border-t-purple-500" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="overflow-hidden rounded-xl mb-4">
+                        <img src="https://images.unsplash.com/photo-1611821064430-0d40291d0f0b?q=80&w=500" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" alt="Remapeo">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Remapeo Autos, Motos, Chatas</h3>
                 </div>
             </div>
         </div>
@@ -451,16 +485,16 @@ tailwind.config = {
 </section>
 
 <!-- SECCIÓN: FORMULARIOS DE TURNOS -->
-<section id="turnos" class="py-24 bg-gradient-to-b from-[#080808] to-primary-dark relative">
+<section id="turnos" class="py-24 bg-gradient-to-b from-[#080808] to-[#141414] relative z-10">
     <div class="container mx-auto px-4 max-w-4xl relative z-10" data-aos="fade-up">
         <div class="text-center mb-10">
-            <h2 class="text-4xl font-bold text-white mb-4">SOLICITAR TURNO</h2>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">SOLICITAR TURNO</h2>
             <p class="text-gray-400">Selecciona el tipo de vehículo para enviar tu consulta por WhatsApp.</p>
         </div>
 
         <div class="glass-card p-2 rounded-2xl mb-8 flex justify-center border border-white/10">
-            <button class="tab-btn active w-1/2 rounded-xl" onclick="switchTab('autos')"><i class="fa-solid fa-car"></i> AUTOS / GNC</button>
-            <button class="tab-btn w-1/2 rounded-xl" onclick="switchTab('motos')"><i class="fa-solid fa-motorcycle"></i> MOTOS</button>
+            <button class="tab-btn active w-1/2 rounded-xl" onclick="switchTab('autos', event)"><i class="fa-solid fa-car"></i> AUTOS / GNC</button>
+            <button class="tab-btn w-1/2 rounded-xl" onclick="switchTab('motos', event)"><i class="fa-solid fa-motorcycle"></i> MOTOS</button>
         </div>
 
         <!-- FORM AUTOS -->
@@ -558,6 +592,9 @@ tailwind.config = {
                             <option>Asiento dañado</option>
                             <option>Portaequipajes o accesorios sueltos</option>
                         </optgroup>
+                        <optgroup label="Performance">
+                            <option>Remapeo / Banco de pruebas a rodillo</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="form-field md:col-span-2">
@@ -592,7 +629,7 @@ tailwind.config = {
                     <i class="fa-brands fa-whatsapp text-[#FF3535] text-2xl mt-1"></i>
                     <div>
                         <p class="font-bold text-white">WhatsApp:</p>
-                        <p class="text-gray-400">03543546389</p>
+                        <a href="https://api.whatsapp.com/send?phone=54903543546389" target="_blank" class="text-gray-400 hover:text-white transition">03543 546389</a>
                     </div>
                 </div>
                 
@@ -614,7 +651,7 @@ tailwind.config = {
 
             <div class="rounded-2xl overflow-hidden shadow-neon" data-aos="fade-left">
                 <a href="https://maps.app.goo.gl/gi2Y3khgb7J4ukEN9" target="_blank" class="block relative group">
-                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=600" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" alt="Mapa Salsipuedes">
+                    <img src="https://images.unsplash.com/photo-1582068933446-9b7484951d31?q=80&w=600" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" alt="Mapa Salsipuedes">
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                         <div class="bg-white/10 backdrop-blur-md p-4 rounded-full border border-white/30">
                             <i class="fa-solid fa-map-pin text-4xl text-[#FF3535] drop-shadow-lg"></i>
@@ -631,10 +668,11 @@ tailwind.config = {
 <footer class="bg-black py-8 border-t border-white/10 text-center text-gray-500 text-sm relative z-10">
     <div class="container mx-auto px-4">
         <p class="font-display font-bold text-lg text-white mb-2">TALLER VICAN GNC | FC RACING TUNE MOTOS</p>
-        <p>Alfredo Palacios 27, X5113 Salsipuedes, Córdoba</p>
+        <p>Salsipuedes, Córdoba</p>
         <div class="flex justify-center gap-4 mt-4">
             <a href="https://www.instagram.com/vicangnc_salsipuedes/" target="_blank" class="text-gray-400 hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
-            <a href="https://api.whatsapp.com/send?phone=5493543546389" target="_blank" class="text-gray-400 hover:text-[#25D366] transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=54903543546389" target="_blank" class="text-gray-400 hover:text-[#25D366] transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+            <a href="https://maps.app.goo.gl/gi2Y3khgb7J4ukEN9" target="_blank" class="text-gray-400 hover:text-[#FF3535] transition"><i class="fa-solid fa-location-dot text-xl"></i></a>
         </div>
     </div>
 </footer>
@@ -650,16 +688,16 @@ tailwind.config = {
     });
 
     // Lógica de Tabs
-    function switchTab(tabId) {
+    function switchTab(tabId, e) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         
-        event.currentTarget.classList.add('active');
+        e.currentTarget.classList.add('active');
         document.getElementById('form-' + tabId).classList.add('active');
     }
 
     // Funciones WhatsApp
-    const WA_NUMBER = "5493543546389";
+    const WA_NUMBER = "54903543546389";
 
     function sendAutoWA() {
         const nombre = document.getElementById('auto-nombre').value || "No especificado";
@@ -668,7 +706,13 @@ tailwind.config = {
         const servicio = document.getElementById('auto-servicio').value;
         const detalle = document.getElementById('auto-detalle').value || "Sin detalles";
 
-        const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗\n\n👤 *Nombre:* ${nombre}\n🚘 *Vehículo:* ${modelo}\n🛣️ *Kilometraje:* ${km} km\n🔧 *Servicio:* ${servicio}\n📝 *Detalle:* ${detalle}`;
+        const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗
+
+👤 *Nombre:* ${nombre}
+🚘 *Vehículo:* ${modelo}
+🛣️ *Kilometraje:* ${km} km
+🔧 *Servicio:* ${servicio}
+📝 *Detalle:* ${detalle}`;
         
         window.open(`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank');
     }
@@ -680,55 +724,41 @@ tailwind.config = {
         const causa = document.getElementById('moto-causa').value;
         const detalle = document.getElementById('moto-detalle').value || "Sin detalles";
 
-        const msg = `🏍️ *NUEVA CONSULTA - MOTO/RACING* 🏍️\n\n👤 *Nombre:* ${nombre}\n🏍️ *Moto:* ${modelo}\n🛣️ *Kilometraje:* ${km} km\n⚠️ *Problema reportado:* ${causa}\n📝 *Comentarios:* ${detalle}`;
+        const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* 🏍️
+
+👤 *Nombre:* ${nombre}
+🏍️ *Marca/Modelo:* ${modelo}
+🛣️ *Kilometraje:* ${km} km
+⚠️ *Problema reportado:* ${causa}
+📝 *Comentarios:* ${detalle}`;
         
         window.open(`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Lógica Horario (Argentina UTC-3 - precisión mejorada)
+    // Lógica Horario (Argentina UTC-3)
     function checkOpenStatus() {
         const statusBadge = document.getElementById('status-badge');
         const statusDot = document.getElementById('status-dot');
         const statusText = document.getElementById('status-text');
         
-        // Obtener hora exacta en Argentina usando formatToParts para evitar problemas de zona horaria local
+        // Obtener hora actual en UTC
         const now = new Date();
-        const formatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'America/Argentina/Cordoba',
-            weekday: 'short',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        });
+        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+        // Offset Argentina UTC-3
+        const argTime = new Date(utc + (3600000 * -3)); 
         
-        const parts = formatter.formatToParts(now);
-        let dayStr, hours, minutes;
-        
-        parts.forEach(part => {
-            if(part.type === 'weekday') dayStr = part.value;
-            if(part.type === 'hour') hours = parseInt(part.value);
-            if(part.type === 'minute') minutes = parseInt(part.value);
-        });
-
-        // Mapear día
-        const dayMap = { 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6, 'Sun': 0 };
-        const day = dayMap[dayStr];
-
-        // Convertir hora a minutos totales para comparación precisa
-        const timeInMinutes = (hours * 60) + minutes;
-
-        // Horarios en minutos: 9:00 a 13:00 y 15:30 a 19:30
-        const morningOpen = 9 * 60;       // 540
-        const morningClose = 13 * 60;     // 780
-        const afternoonOpen = 15 * 60 + 30; // 930
-        const afternoonClose = 19 * 60 + 30; // 1170
+        const day = argTime.getDay(); // 0 = Domingo, 1 = Lunes, 6 = Sábado
+        const hours = argTime.getHours();
+        const minutes = argTime.getMinutes();
+        const timeFloat = hours + (minutes / 60);
 
         let isOpen = false;
 
         // Abierto Lunes(1) a Viernes(5)
         if (day >= 1 && day <= 5) {
-            if ((timeInMinutes >= morningOpen && timeInMinutes < morningClose) || 
-                (timeInMinutes >= afternoonOpen && timeInMinutes < afternoonClose)) {
+            // Mañana: 9:00 a 13:00 (1 pm)
+            // Tarde: 15:30 (3:30 pm) a 19:30 (7:30 pm)
+            if ((timeFloat >= 9 && timeFloat < 13) || (timeFloat >= 15.5 && timeFloat < 19.5)) {
                 isOpen = true;
             }
         }
@@ -738,21 +768,21 @@ tailwind.config = {
             statusDot.classList.add('bg-green-500');
             statusDot.style.boxShadow = '0 0 8px rgba(34,197,94,0.8)';
             statusText.textContent = "ABIERTO AHORA";
-            statusBadge.classList.remove('border-red-500/30');
-            statusBadge.classList.add('border-green-500/30', 'bg-green-500/10');
+            statusBadge.classList.add('border-green-500/30');
+            statusBadge.classList.remove('border-red-500/30', 'border-white/10');
         } else {
             statusDot.classList.remove('bg-gray-500', 'bg-green-500');
             statusDot.classList.add('bg-red-500');
             statusDot.style.boxShadow = '0 0 8px rgba(239,68,68,0.8)';
             statusText.textContent = "CERRADO AHORA";
-            statusBadge.classList.remove('border-green-500/30');
-            statusBadge.classList.add('border-red-500/30', 'bg-red-500/10');
+            statusBadge.classList.add('border-red-500/30');
+            statusBadge.classList.remove('border-green-500/30', 'border-white/10');
         }
     }
 
-    // Ejecutar lógica de horarios
+    // Ejecutar lógica de horarios al cargar y cada minuto
     checkOpenStatus();
-    setInterval(checkOpenStatus, 30000); // Chequear cada 30 segundos para mayor precisión
+    setInterval(checkOpenStatus, 60000); 
 
 </script>
 </body>

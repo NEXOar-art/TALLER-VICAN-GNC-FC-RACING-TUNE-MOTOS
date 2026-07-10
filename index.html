@@ -51,6 +51,7 @@ tailwind.config = {
                 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                 'spin-slow': 'spin 8s linear infinite',
                 'bg-pan': 'bg-pan 30s ease-in-out infinite alternate',
+                'hero-zoom': 'hero-zoom 25s ease-in-out infinite alternate',
             },
             keyframes: {
                 float: {
@@ -60,6 +61,10 @@ tailwind.config = {
                 'bg-pan': {
                     '0%': { transform: 'scale(1.1) translate(0, 0)' },
                     '100%': { transform: 'scale(1.25) translate(-2%, 2%)' }
+                },
+                'hero-zoom': {
+                    '0%': { transform: 'scale(1) translate(0, 0)' },
+                    '100%': { transform: 'scale(1.15) translate(-2%, 2%)' }
                 }
             }
         }
@@ -90,6 +95,29 @@ tailwind.config = {
         z-index: -2;
         filter: brightness(0.6) contrast(1.2);
         animation: bg-pan 30s ease-in-out infinite alternate;
+    }
+
+    /* Fondo Hero Section con efecto movimiento */
+    .hero-bg-container {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .hero-bg-image {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=1920'); /* Taller profesional oscuro */
+        background-size: cover;
+        background-position: center;
+        animation: hero-zoom 25s ease-in-out infinite alternate;
+    }
+    .hero-bg-overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.95) 100%);
     }
     
     .glass-card {
@@ -351,6 +379,10 @@ tailwind.config = {
 
 <!-- HERO SECTION -->
 <header class="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="hero-bg-container">
+        <div class="hero-bg-image"></div>
+        <div class="hero-bg-overlay"></div>
+    </div>
     <div class="container mx-auto px-4 relative z-10 text-center">
         
         <h1 class="font-display font-black text-4xl md:text-6xl lg:text-7xl leading-tight glow-text mb-6" data-aos="fade-up">
@@ -412,18 +444,18 @@ tailwind.config = {
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Service Cards (Imágenes reemplazadas por contexto de taller automotor) -->
+                <!-- Service Cards (Imágenes aplicadas y títulos ajustados) -->
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio Mecánico Automotor">
+                        <img src="https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio Mecánico Automotor">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio Mecánico</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio Mecánico Automotor</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1597260056789-19c6d1b64c1c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Inyección Eléctrica y Bujías">
+                        <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Inyección Electrónica y Bujías">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Eléctrica</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Electrónica y Bujías</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="300">
                     <div class="overflow-hidden rounded-xl mb-4">
@@ -439,15 +471,15 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="500">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Gomería y Cubiertas">
+                        <img src="https://images.unsplash.com/photo-1632823469850-2f77dd9c7f93?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio de Gomería">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio de Gomería</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="600">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1607860106126-4d5f5e3530b2?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Lubricentro y Aceite">
+                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Lubricentro y Aceite">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Lubricentro</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Lubricentro y Aceite</h3>
                 </div>
             </div>
         </div>

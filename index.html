@@ -51,7 +51,6 @@ tailwind.config = {
                 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                 'spin-slow': 'spin 8s linear infinite',
                 'bg-pan': 'bg-pan 30s ease-in-out infinite alternate',
-                'hero-zoom': 'hero-zoom 25s ease-in-out infinite alternate',
             },
             keyframes: {
                 float: {
@@ -61,10 +60,6 @@ tailwind.config = {
                 'bg-pan': {
                     '0%': { transform: 'scale(1.1) translate(0, 0)' },
                     '100%': { transform: 'scale(1.25) translate(-2%, 2%)' }
-                },
-                'hero-zoom': {
-                    '0%': { transform: 'scale(1) translate(0, 0)' },
-                    '100%': { transform: 'scale(1.15) translate(-2%, 2%)' }
                 }
             }
         }
@@ -76,6 +71,7 @@ tailwind.config = {
     :root {
         --gradient-primary: linear-gradient(135deg, #FF3535 0%, #F7931E 100%);
         --gradient-dark: linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 100%);
+        --bg-opacity: 0.18; /* Opacidad inicial del fondo global */
     }
     
     body {
@@ -91,33 +87,11 @@ tailwind.config = {
         background-image: url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=1920'); /* Taller mecánico */
         background-size: cover;
         background-position: center;
-        opacity: 0.15;
+        opacity: var(--bg-opacity);
         z-index: -2;
         filter: brightness(0.6) contrast(1.2);
         animation: bg-pan 30s ease-in-out infinite alternate;
-    }
-
-    /* Fondo Hero Section con efecto movimiento */
-    .hero-bg-container {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 1;
-        overflow: hidden;
-    }
-    .hero-bg-image {
-        width: 100%;
-        height: 100%;
-        background-image: url('https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=1920'); /* Taller profesional oscuro */
-        background-size: cover;
-        background-position: center;
-        animation: hero-zoom 25s ease-in-out infinite alternate;
-    }
-    .hero-bg-overlay {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.95) 100%);
+        transition: opacity 0.4s ease; /* Transición suave para el efecto de scroll */
     }
     
     .glass-card {
@@ -328,6 +302,22 @@ tailwind.config = {
         background-repeat: no-repeat;
         background-size: cover;
     }
+
+    /* Fondo de Sección con Efecto Hover de Movimiento */
+    .section-bg-hover {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url('https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=1920'); /* Fondo Taller */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.08;
+        z-index: 0;
+        transition: transform 1.5s ease, opacity 0.5s ease; /* Transición suave de zoom */
+    }
+    #servicios:hover .section-bg-hover {
+        transform: scale(1.1); /* Efecto de movimiento al hacer hover */
+        opacity: 0.12;
+    }
 </style>
 </head>
 <body class="antialiased relative">
@@ -379,10 +369,6 @@ tailwind.config = {
 
 <!-- HERO SECTION -->
 <header class="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
-    <div class="hero-bg-container">
-        <div class="hero-bg-image"></div>
-        <div class="hero-bg-overlay"></div>
-    </div>
     <div class="container mx-auto px-4 relative z-10 text-center">
         
         <h1 class="font-display font-black text-4xl md:text-6xl lg:text-7xl leading-tight glow-text mb-6" data-aos="fade-up">
@@ -433,8 +419,11 @@ tailwind.config = {
 </section>
 
 <!-- SECCIÓN: SERVICIOS -->
-<section id="servicios" class="py-24 bg-[#0D0D0D] relative z-10">
-    <div class="container mx-auto px-4">
+<section id="servicios" class="py-24 bg-[#0D0D0D] relative z-10 overflow-hidden">
+    <!-- Fondo de Taller con Efecto Hover -->
+    <div class="section-bg-hover"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
         
         <!-- Taller Vican GNC -->
         <div class="mb-24">
@@ -444,16 +433,16 @@ tailwind.config = {
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Service Cards (Imágenes aplicadas y títulos ajustados) -->
+                <!-- Service Cards (Imágenes específicas agregadas) -->
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio Mecánico Automotor">
+                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio Mecánico Automotor">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio Mecánico Automotor</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Inyección Electrónica y Bujías">
+                        <img src="https://images.unsplash.com/photo-1597260056789-19c6d1b64c1c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Inyección Electrónica y Bujías">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Electrónica y Bujías</h3>
                 </div>
@@ -471,13 +460,13 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="500">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1632823469850-2f77dd9c7f93?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio de Gomería">
+                        <img src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Servicio de Gomería">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio de Gomería</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="600">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Lubricentro y Aceite">
+                        <img src="https://images.unsplash.com/photo-1607860106126-4d5f5e3530b2?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500" alt="Lubricentro y Aceite">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Lubricentro y Aceite</h3>
                 </div>
@@ -815,6 +804,17 @@ tailwind.config = {
     // Ejecutar lógica de horarios al cargar y cada minuto
     checkOpenStatus();
     setInterval(checkOpenStatus, 60000); 
+
+    // Lógica para quitar gradualmente la opacidad del fondo global al hacer scroll
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY;
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollPos / maxScroll;
+        
+        // Empieza en 0.18 y baja gradualmente hasta 0.03
+        const newOpacity = Math.max(0.03, 0.18 - (scrollPercent * 0.15));
+        document.body.style.setProperty('--bg-opacity', newOpacity);
+    });
 
 </script>
 </body>

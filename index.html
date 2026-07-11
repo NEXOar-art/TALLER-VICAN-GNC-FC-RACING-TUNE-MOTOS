@@ -132,7 +132,6 @@ tailwind.config = {
         box-shadow: 0 20px 50px rgba(255, 53, 53, 0.5), 0 0 40px rgba(255, 53, 53, 0.4);
     }
 
-    /* Video Logo Styles - Más Grande */
     .hero-logo-wrapper {
         display: flex;
         justify-content: center;
@@ -179,11 +178,11 @@ tailwind.config = {
         left: -10%;
         width: 120%;
         height: 120%;
-        background-image: url('https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=1920');
+        background-image: url('prueba hidraulica.png');
         background-size: cover;
         background-position: center;
         animation: title-bg-pan 20s ease-in-out infinite alternate;
-        filter: brightness(0.4) contrast(1.2);
+        filter: brightness(0.5) contrast(1.2);
         z-index: 0;
     }
     @keyframes title-bg-pan {
@@ -372,9 +371,6 @@ tailwind.config = {
         opacity: 0.25;
     }
 
-    /* NUEVOS ESTILOS PARA FONDOS DE SECCIÓN PROFESIONALES */
-    
-    /* Fondo Sección Servicios - Taller Mecánico Profesional */
     .section-servicios-bg {
         position: absolute;
         top: 0;
@@ -391,7 +387,6 @@ tailwind.config = {
         animation: section-bg-move 40s ease-in-out infinite alternate;
     }
     
-    /* Fondo Sección FC Racing - Motos Performance */
     .section-fcracing-bg {
         position: absolute;
         top: 0;
@@ -407,7 +402,6 @@ tailwind.config = {
         filter: brightness(0.6) contrast(1.2);
     }
     
-    /* Fondo Sección Turnos - Herramientas Mecánicas */
     .section-turnos-bg {
         position: absolute;
         top: 0;
@@ -423,7 +417,6 @@ tailwind.config = {
         filter: brightness(0.5) contrast(1.3);
     }
     
-    /* Fondo Sección Ubicación - Mapa/Taller */
     .section-ubicacion-bg {
         position: absolute;
         top: 0;
@@ -444,7 +437,6 @@ tailwind.config = {
         100% { transform: scale(1.15) translate(-3%, 3%); }
     }
     
-    /* Overlay mejorado para legibilidad */
     .section-overlay {
         position: absolute;
         top: 0;
@@ -458,7 +450,6 @@ tailwind.config = {
         z-index: 1;
     }
     
-    /* Efecto de revelado al hacer scroll */
     .reveal-section {
         opacity: 0;
         transform: translateY(30px);
@@ -468,6 +459,25 @@ tailwind.config = {
     .reveal-section.visible {
         opacity: 1;
         transform: translateY(0);
+    }
+    
+    /* Mapa embebido styles */
+    .map-container {
+        position: relative;
+        padding-bottom: 75%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+    
+    .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        filter: grayscale(20%) contrast(1.1);
     }
 </style>
 </head>
@@ -483,7 +493,7 @@ tailwind.config = {
         <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
         <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
-        <span class="ticker-item">👃 OLOR A GAS</span>
+        <span class="ticker-item"> OLOR A GAS</span>
         <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
         <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
         <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
@@ -589,7 +599,6 @@ tailwind.config = {
 
 <!-- SECCIÓN: SERVICIOS -->
 <section id="servicios" class="py-24 bg-[#0D0D0D] relative z-10 overflow-hidden">
-    <!-- Fondo Profesional de Taller Mecánico -->
     <div class="section-servicios-bg"></div>
     <div class="section-overlay"></div>
     
@@ -611,7 +620,7 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1597260056789-19c6d1b64c1c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Inyección Electrónica y Bujías">
+                        <img src="https://images.unsplash.com/photo-1489824901527-169a9c2e0d9f?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Inyección Electrónica y Bujías">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Electrónica y Bujías</h3>
                 </div>
@@ -623,13 +632,13 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="400">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Alineado 3D y Balanceo">
+                        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Alineado 3D y Balanceo">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Alineado 3D & Balanceado</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="500">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Servicio de Gomería">
+                        <img src="https://images.unsplash.com/photo-1578844251758-2f71da64521f?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Servicio de Gomería">
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Servicio de Gomería</h3>
                 </div>
@@ -676,7 +685,6 @@ tailwind.config = {
 
 <!-- SECCIÓN: FORMULARIOS DE TURNOS -->
 <section id="turnos" class="py-24 bg-gradient-to-b from-[#080808] to-[#141414] relative z-10">
-    <!-- Fondo Profesional de Herramientas -->
     <div class="section-turnos-bg"></div>
     <div class="section-overlay"></div>
     
@@ -805,7 +813,6 @@ tailwind.config = {
 
 <!-- SECCIÓN: UBICACIÓN Y HORARIOS -->
 <section class="py-20 bg-[#0A0A0A] border-t border-white/10 relative z-10">
-    <!-- Fondo Profesional de Ubicación -->
     <div class="section-ubicacion-bg"></div>
     <div class="section-overlay"></div>
     
@@ -848,14 +855,14 @@ tailwind.config = {
             </div>
 
             <div class="rounded-2xl overflow-hidden shadow-neon" data-aos="fade-left">
-                <a href="https://maps.app.goo.gl/gi2Y3khgb7J4ukEN9" target="_blank" class="block relative group">
-                    <img src="https://images.unsplash.com/photo-1582068933446-9b7484951d31?q=80&w=600" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500 card-img-anim" alt="Mapa Salsipuedes">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-full border border-white/30">
-                            <i class="fa-solid fa-map-pin text-4xl text-[#FF3535] drop-shadow-lg"></i>
-                        </div>
-                    </div>
-                </a>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3399.1234567890123!2d-64.12345678901234!3d-31.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x943298b12345678%3A0x1234567890abcdef!2sAlfredo%20Palacios%2027%2C%20X5113%20Salsipuedes%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1234567890123!5m2!1ses!2sar" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
             </div>
             
         </div>
@@ -901,7 +908,7 @@ tailwind.config = {
         const servicio = document.getElementById('auto-servicio').value;
         const detalle = document.getElementById('auto-detalle').value || "Sin detalles";
 
-        const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗
+        const msg = ` *NUEVA CONSULTA - AUTO/GNC* 🚗
 
 👤 *Nombre:* ${nombre}
  *Vehículo:* ${modelo}
@@ -980,7 +987,6 @@ tailwind.config = {
         const newOpacity = Math.max(0.08, 0.25 - (scrollPercent * 0.15));
         document.body.style.setProperty('--bg-opacity', newOpacity);
         
-        // Revelar secciones al hacer scroll
         const revealSections = document.querySelectorAll('.reveal-section');
         revealSections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;

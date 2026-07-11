@@ -71,7 +71,7 @@ tailwind.config = {
     :root {
         --gradient-primary: linear-gradient(135deg, #FF3535 0%, #F7931E 100%);
         --gradient-dark: linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 100%);
-        --bg-opacity: 0.18; /* Opacidad inicial del fondo global */
+        --bg-opacity: 0.25; /* Opacidad inicial del fondo global aumentada */
     }
     
     body {
@@ -374,13 +374,13 @@ tailwind.config = {
         background-image: url('https://images.unsplash.com/photo-1486262715619-6739c6000284?q=80&w=1920'); /* Fondo Taller */
         background-size: cover;
         background-position: center;
-        opacity: 0.08;
+        opacity: 0.15; /* Opacidad aumentada para que se note más */
         z-index: 0;
         transition: transform 1.5s ease, opacity 0.5s ease;
     }
     #servicios:hover .section-bg-hover {
         transform: scale(1.1);
-        opacity: 0.12;
+        opacity: 0.25; /* Opacidad en hover aumentada */
     }
 </style>
 </head>
@@ -433,10 +433,10 @@ tailwind.config = {
 
 <!-- HERO SECTION -->
 <header class="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- NUEVO: Fondo con movimiento para el Título Principal -->
+    <!-- NUEVO: Fondo con movimiento para el Título Principal con opacidad reducida -->
     <div class="absolute inset-0 z-0 overflow-hidden">
         <div class="hero-title-bg"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/70 to-[#0A0A0A]/95"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-[#0A0A0A]/40 to-[#0A0A0A]/80"></div>
     </div>
     
     <div class="container mx-auto px-4 relative z-10 text-center">
@@ -467,7 +467,7 @@ tailwind.config = {
 </header>
 
 <!-- SECCIÓN: PRUEBA HIDRÁULICA (Efecto Scrolling / Parallax) -->
-<section class="relative py-32 min-h-[90vh] flex items-center justify-center parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=1920'); box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.75);">
+<section class="relative py-32 min-h-[90vh] flex items-center justify-center parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=1920'); box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.45);">
     <div class="container mx-auto px-4 text-center z-10">
         <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg" data-aos="fade-down">
             PRUEBA HIDRÁULICA
@@ -487,13 +487,16 @@ tailwind.config = {
             <i class="fa-solid fa-camera mr-2"></i> Te pediremos foto de DNI y Cédula Verde (Frente y Dorso).
         </p>
 
-        <!-- NUEVO: Servicio asociado a la sección -->
-        <div class="mt-12 max-w-lg mx-auto glass-card p-8 text-center border border-[#FF3535]/30" data-aos="zoom-in" data-aos-delay="500">
-            <div class="flex items-center justify-center gap-3 mb-3">
-                <i class="fa-solid fa-gas-pump text-[#F7931E] text-3xl"></i>
-                <h3 class="text-2xl font-bold text-white uppercase tracking-wide">Service, Venta e Instalación</h3>
+        <!-- NUEVO: Servicio asociado a la sección con imagen agregada -->
+        <div class="mt-12 max-w-md mx-auto glass-card p-6 text-center group border border-[#FF3535]/30" data-aos="zoom-in" data-aos-delay="500">
+            <div class="overflow-hidden rounded-xl mb-4">
+                <img src="https://images.unsplash.com/photo-1597007030739-6d2e7172ee6c?q=80&w=500" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Equipos GNC">
             </div>
-            <p class="text-xl gradient-text font-bold mb-3">EQUIPOS 3ra, 4ta y 5ta G</p>
+            <div class="flex items-center justify-center gap-3 mb-2">
+                <i class="fa-solid fa-gas-pump text-[#F7931E] text-2xl"></i>
+                <h3 class="text-xl font-bold text-white uppercase tracking-wide">Service, Venta e Instalación</h3>
+            </div>
+            <p class="text-lg gradient-text font-bold mb-3">EQUIPOS 3ra, 4ta y 5ta G</p>
             <p class="text-gray-400 text-sm mb-6">Instalación profesional, mantenimiento y venta de equipos de última generación. Maximizá la eficiencia y seguridad de tu vehículo.</p>
             <a href="https://api.whatsapp.com/send?phone=543543546389&text=Hola%20quiero%20info%20sobre%20Service,%20venta%20e%20instalación%20de%20EQUIPOS%203ra,%204ta%20y%205ta%20G" target="_blank" class="btn-primary px-6 py-3 rounded-lg text-sm uppercase tracking-wide inline-flex items-center gap-2">
                 <i class="fa-brands fa-whatsapp text-lg"></i> Solicitar Información
@@ -505,7 +508,7 @@ tailwind.config = {
 
 <!-- SECCIÓN: SERVICIOS -->
 <section id="servicios" class="py-24 bg-[#0D0D0D] relative z-10 overflow-hidden">
-    <!-- Fondo de Taller con Efecto Hover -->
+    <!-- Fondo de Taller con Efecto Hover (opacidad aumentada) -->
     <div class="section-bg-hover"></div>
     
     <div class="container mx-auto px-4 relative z-10">
@@ -890,7 +893,7 @@ tailwind.config = {
         const maxScroll = document.body.scrollHeight - window.innerHeight;
         const scrollPercent = scrollPos / maxScroll;
         
-        const newOpacity = Math.max(0.03, 0.18 - (scrollPercent * 0.15));
+        const newOpacity = Math.max(0.08, 0.25 - (scrollPercent * 0.15));
         document.body.style.setProperty('--bg-opacity', newOpacity);
     });
 

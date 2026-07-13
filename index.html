@@ -137,9 +137,11 @@ tailwind.config = {
         justify-content: center;
         align-items: center;
         width: 100%;
+        max-width: 420px;
         margin: 2rem auto;
         position: relative;
         z-index: 10;
+        aspect-ratio: 1 / 1;
     }
     
     .hero-logo-bg {
@@ -147,8 +149,8 @@ tailwind.config = {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 560px;
-        height: 560px;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         background-image: url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da77?q=80&w=900');
         background-size: cover;
@@ -156,12 +158,6 @@ tailwind.config = {
         z-index: 1;
         filter: blur(3px) brightness(0.55);
         animation: logo-bg-pan 18s ease-in-out infinite alternate, logo-bg-opacity 8s ease-in-out infinite;
-    }
-    @media (max-width: 768px) {
-        .hero-logo-bg {
-            width: 380px;
-            height: 380px;
-        }
     }
     @keyframes logo-bg-pan {
         0% { background-position: 0% 0%; transform: translate(-50%, -50%) scale(1.1); }
@@ -191,23 +187,17 @@ tailwind.config = {
     }
 
     .hero-logo-img {
-        width: 420px;
-        height: 420px;
-        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         border-radius: 50%;
         border: 8px solid #FF3535;
         box-shadow: 0 0 60px rgba(255, 53, 53, 0.6), inset 0 0 40px rgba(255, 53, 53, 0.3);
         transition: all 0.5s ease;
-        background: #000;
+        background: transparent;
         position: relative;
         z-index: 2;
-    }
-
-    @media (max-width: 768px) {
-        .hero-logo-img {
-            width: 300px;
-            height: 300px;
-        }
+        padding: 10px;
     }
 
     .hero-logo-img:hover {
@@ -551,6 +541,37 @@ tailwind.config = {
         background-clip: text;
         font-weight: bold;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-logo-wrapper {
+            max-width: 300px;
+        }
+        .hero-logo-img {
+            border-width: 6px;
+            padding: 8px;
+        }
+        .btn-circular-action {
+            width: 180px;
+            height: 180px;
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-logo-wrapper {
+            max-width: 250px;
+        }
+        .hero-logo-img {
+            border-width: 5px;
+            padding: 6px;
+        }
+        .btn-circular-action {
+            width: 160px;
+            height: 160px;
+            font-size: 1.1rem;
+        }
+    }
 </style>
 </head>
 <body class="antialiased relative">
@@ -560,9 +581,9 @@ tailwind.config = {
     <div class="ticker-track">
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
-        <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
+        <span class="ticker-item"> DIFICULTODES AL PASAR DE NAFTA A GAS</span>
         <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
-        <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
+        <span class="ticker-item"> REGULA MAL O SE APAGA A GAS</span>
         <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
@@ -655,7 +676,7 @@ tailwind.config = {
         
         <div class="hero-logo-wrapper" data-aos="zoom-in" data-aos-delay="200">
             <div class="hero-logo-bg"></div>
-            <img src="TALLER VICAN GNC.png" alt="Taller Vican GNC Logo" class="hero-logo-img">
+            <img src="ALTO GNC.png" alt="Taller Vican GNC Logo" class="hero-logo-img">
         </div>
         
         <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mt-8 mb-10" data-aos="fade-up" data-aos-delay="400">
@@ -990,6 +1011,9 @@ tailwind.config = {
             <a href="https://www.instagram.com/vicangnc_salsipuedes/" target="_blank" class="text-gray-400 hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
             <a href="https://api.whatsapp.com/send?phone=543543546389" target="_blank" class="text-gray-400 hover:text-[#25D366] transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
             <a href="https://maps.app.goo.gl/gi2Y3khgb7J4ukEN9" target="_blank" class="text-gray-400 hover:text-[#FF3535] transition"><i class="fa-solid fa-location-dot text-xl"></i></a>
+            <button onclick="showAdminLogin()" class="text-gray-400 hover:text-[#FF3535] transition" title="Administración">
+                <i class="fa-solid fa-cog text-xl"></i>
+            </button>
         </div>
     </div>
 </footer>
@@ -1109,7 +1133,7 @@ tailwind.config = {
 
         const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* 🏍️
 
- *Nombre:* ${nombre}
+👤 *Nombre:* ${nombre}
 🏍️ *Marca/Modelo:* ${modelo}
 🛣️ *Kilometraje:* ${km} km
 ⚠️ *Problema reportado:* ${causa}

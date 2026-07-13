@@ -190,7 +190,7 @@ tailwind.config = {
         100% { transform: scale(1.3) translate(-5%, 5%); }
     }
 
-    .hero-logo-video {
+    .hero-logo-img {
         width: 420px;
         height: 420px;
         object-fit: cover;
@@ -204,13 +204,13 @@ tailwind.config = {
     }
 
     @media (max-width: 768px) {
-        .hero-logo-video {
+        .hero-logo-img {
             width: 300px;
             height: 300px;
         }
     }
 
-    .hero-logo-video:hover {
+    .hero-logo-img:hover {
         transform: scale(1.05);
         box-shadow: 0 0 80px rgba(255, 53, 53, 0.8), 0 0 120px rgba(255, 53, 53, 0.5);
     }
@@ -482,6 +482,75 @@ tailwind.config = {
     .map-container:hover iframe {
         filter: grayscale(0%) contrast(1.2);
     }
+
+    /* Admin Panel Styles */
+    .admin-panel {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(145deg, rgba(45, 45, 45, 0.95), rgba(26, 26, 26, 0.98));
+        backdrop-filter: blur(20px);
+        border: 2px solid #FF3535;
+        border-radius: 24px;
+        padding: 2rem;
+        z-index: 1000;
+        box-shadow: 0 0 60px rgba(255, 53, 53, 0.5);
+        max-width: 400px;
+        width: 90%;
+    }
+    
+    .admin-panel.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .admin-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+    }
+    
+    .admin-overlay.active {
+        display: block;
+    }
+    
+    .admin-trigger {
+        position: fixed;
+        bottom: 8px;
+        left: 8px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 53, 53, 0.3);
+        border: 1px solid rgba(255, 53, 53, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.3;
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+    
+    .admin-trigger:hover {
+        opacity: 1;
+        background: rgba(255, 53, 53, 0.6);
+    }
+    
+    .price-display {
+        background: linear-gradient(135deg, #FF3535 0%, #F7931E 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
+    }
 </style>
 </head>
 <body class="antialiased relative">
@@ -491,14 +560,14 @@ tailwind.config = {
     <div class="ticker-track">
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
-        <span class="ticker-item"> DIFICULTODES AL PASAR DE NAFTA A GAS</span>
+        <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
         <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
         <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
         <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
         <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
-        <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
+        <span class="ticker-item"> PÉRDIDA DE POTENCIA</span>
         <span class="ticker-item">🚫 REGULA MAL O SE APAGA A GAS</span>
         <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
     </div>
@@ -529,6 +598,48 @@ tailwind.config = {
     </a>
 </div>
 
+<!-- Admin Trigger Button -->
+<div class="admin-trigger" onclick="showAdminLogin()" title="Administración">
+    <i class="fa-solid fa-cog text-white text-sm"></i>
+</div>
+
+<!-- Admin Overlay -->
+<div class="admin-overlay" onclick="closeAdminPanel()"></div>
+
+<!-- Admin Panel -->
+<div class="admin-panel" id="adminPanel">
+    <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold text-white mb-2">Panel de Administración</h3>
+        <p class="text-gray-400 text-sm">Gestión de Precios</p>
+    </div>
+    
+    <div id="adminLogin">
+        <div class="form-field">
+            <label class="field-label">Clave de Acceso</label>
+            <input type="password" id="adminPassword" class="field-input" placeholder="Ingrese la clave">
+        </div>
+        <button onclick="verifyAdmin()" class="btn-primary w-full py-3 rounded-xl mt-4">
+            <i class="fa-solid fa-lock mr-2"></i> Acceder
+        </button>
+        <button onclick="closeAdminPanel()" class="w-full py-3 mt-2 text-gray-400 hover:text-white transition">
+            Cancelar
+        </button>
+    </div>
+    
+    <div id="adminContent" style="display: none;">
+        <div class="form-field">
+            <label class="field-label">Precio Prueba Hidráulica ($)</label>
+            <input type="number" id="priceInput" class="field-input" placeholder="30000">
+        </div>
+        <button onclick="savePrice()" class="btn-primary w-full py-3 rounded-xl mt-4">
+            <i class="fa-solid fa-save mr-2"></i> Guardar Cambios
+        </button>
+        <button onclick="logoutAdmin()" class="w-full py-3 mt-2 text-gray-400 hover:text-white transition">
+            <i class="fa-solid fa-sign-out-alt mr-2"></i> Cerrar Sesión
+        </button>
+    </div>
+</div>
+
 <!-- HERO SECTION -->
 <header class="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0 overflow-hidden">
@@ -544,7 +655,7 @@ tailwind.config = {
         
         <div class="hero-logo-wrapper" data-aos="zoom-in" data-aos-delay="200">
             <div class="hero-logo-bg"></div>
-            <video src="VIDEOVICAN.mp4" autoplay loop muted playsinline class="hero-logo-video"></video>
+            <img src="TALLER VICAN GNC.png" alt="Taller Vican GNC Logo" class="hero-logo-img">
         </div>
         
         <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mt-8 mb-10" data-aos="fade-up" data-aos-delay="400">
@@ -569,7 +680,7 @@ tailwind.config = {
             PRUEBA HIDRÁULICA
         </h2>
         <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto drop-shadow-md" data-aos="fade-up">
-            Obligatoria cada 5 años. Renovamos tu oblea y verificamos la seguridad de tu equipo de GNC. No dejes que se venza lo realizamos en 24 hs Valor $30.000 pesos.
+            Obligatoria cada 5 años. Renovamos tu oblea y verificamos la seguridad de tu equipo de GNC. No dejes que se venza lo realizamos en 24 hs Valor <span id="dynamicPrice" class="price-display">$30.000</span> pesos.
         </p>
         
         <div class="flex justify-center" data-aos="zoom-in" data-aos-delay="300">
@@ -892,6 +1003,75 @@ tailwind.config = {
         offset: 100,
     });
 
+    // Admin Panel Functions
+    const ADMIN_PASSWORD = 'GNC001';
+    const PRICE_STORAGE_KEY = 'tallerVicanGNC_price';
+    
+    function showAdminLogin() {
+        document.getElementById('adminPanel').classList.add('active');
+        document.querySelector('.admin-overlay').classList.add('active');
+        document.getElementById('adminLogin').style.display = 'block';
+        document.getElementById('adminContent').style.display = 'none';
+        document.getElementById('adminPassword').value = '';
+    }
+    
+    function closeAdminPanel() {
+        document.getElementById('adminPanel').classList.remove('active');
+        document.querySelector('.admin-overlay').classList.remove('active');
+    }
+    
+    function verifyAdmin() {
+        const password = document.getElementById('adminPassword').value;
+        if (password === ADMIN_PASSWORD) {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            const currentPrice = localStorage.getItem(PRICE_STORAGE_KEY) || '30000';
+            document.getElementById('priceInput').value = currentPrice;
+        } else {
+            alert('Clave incorrecta');
+            document.getElementById('adminPassword').value = '';
+        }
+    }
+    
+    function savePrice() {
+        const newPrice = document.getElementById('priceInput').value;
+        if (newPrice && !isNaN(newPrice)) {
+            localStorage.setItem(PRICE_STORAGE_KEY, newPrice);
+            updatePriceDisplay();
+            alert('Precio actualizado correctamente');
+            closeAdminPanel();
+        } else {
+            alert('Por favor ingrese un valor válido');
+        }
+    }
+    
+    function logoutAdmin() {
+        closeAdminPanel();
+    }
+    
+    function updatePriceDisplay() {
+        const price = localStorage.getItem(PRICE_STORAGE_KEY) || '30000';
+        const formattedPrice = '$' + parseInt(price).toLocaleString('es-AR');
+        document.getElementById('dynamicPrice').textContent = formattedPrice;
+    }
+    
+    // Load price on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        updatePriceDisplay();
+        
+        // Check for price changes every second (for multi-tab sync)
+        setInterval(function() {
+            updatePriceDisplay();
+        }, 1000);
+    });
+    
+    // Listen for storage changes from other tabs
+    window.addEventListener('storage', function(e) {
+        if (e.key === PRICE_STORAGE_KEY) {
+            updatePriceDisplay();
+        }
+    });
+
     function switchTab(tabId, e) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -912,7 +1092,7 @@ tailwind.config = {
         const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗
 
 👤 *Nombre:* ${nombre}
- *Vehículo:* ${modelo}
+🚗 *Vehículo:* ${modelo}
 ️ *Kilometraje:* ${km} km
 🔧 *Servicio:* ${servicio}
 📝 *Detalle:* ${detalle}`;
@@ -930,7 +1110,7 @@ tailwind.config = {
         const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* 🏍️
 
  *Nombre:* ${nombre}
-️ *Marca/Modelo:* ${modelo}
+🏍️ *Marca/Modelo:* ${modelo}
 🛣️ *Kilometraje:* ${km} km
 ⚠️ *Problema reportado:* ${causa}
 📝 *Comentarios:* ${detalle}`;

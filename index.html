@@ -1056,7 +1056,7 @@ tailwind.config = {
     // ============================================
     // ¡Importante! Actualiza este número manualmente en el código fuente 
     // cuando quieras forzar una actualización global en TODOS los dispositivos.
-    const codeVersion = '1.0'; 
+    const codeVersion = '1.1'; 
     
     // Verificación al cargar: si la versión del código es diferente a la almacenada, limpiamos cache
     if (localStorage.getItem('appVersion') !== codeVersion) {
@@ -1067,7 +1067,7 @@ tailwind.config = {
 
     // Inicializar precio por defecto si no existe (después de posible clear)
     if (!localStorage.getItem('tallerVicanGNC_price')) {
-        localStorage.setItem('tallerVicanGNC_price', '30000');
+        localStorage.setItem('tallerVicanGNC_price', '30001');
     }
 
     AOS.init({

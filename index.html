@@ -473,75 +473,6 @@ tailwind.config = {
         filter: grayscale(0%) contrast(1.2);
     }
 
-    /* Admin Panel Styles */
-    .admin-panel {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(145deg, rgba(45, 45, 45, 0.95), rgba(26, 26, 26, 0.98));
-        backdrop-filter: blur(20px);
-        border: 2px solid #FF3535;
-        border-radius: 24px;
-        padding: 2rem;
-        z-index: 1000;
-        box-shadow: 0 0 60px rgba(255, 53, 53, 0.5);
-        max-width: 400px;
-        width: 90%;
-    }
-    
-    .admin-panel.active {
-        display: block;
-        animation: fadeIn 0.3s ease;
-    }
-    
-    .admin-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 999;
-    }
-    
-    .admin-overlay.active {
-        display: block;
-    }
-    
-    .admin-trigger {
-        position: fixed;
-        bottom: 8px;
-        left: 8px;
-        width: 40px;
-        height: 40px;
-        background: rgba(255, 53, 53, 0.3);
-        border: 1px solid rgba(255, 53, 53, 0.5);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        opacity: 0.3;
-        transition: all 0.3s ease;
-        z-index: 100;
-    }
-    
-    .admin-trigger:hover {
-        opacity: 1;
-        background: rgba(255, 53, 53, 0.6);
-    }
-    
-    .price-display {
-        background: linear-gradient(135deg, #FF3535 0%, #F7931E 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: bold;
-    }
-
     /* WhatsApp Button Styles */
     .whatsapp-float {
         position: fixed;
@@ -594,10 +525,6 @@ tailwind.config = {
         .ticker-wrap {
             font-size: 0.85em;
         }
-        .admin-panel {
-            padding: 1.5rem;
-            max-width: 90%;
-        }
         .whatsapp-float {
             width: 55px;
             height: 55px;
@@ -629,9 +556,6 @@ tailwind.config = {
         .ticker-wrap {
             font-size: 0.75em;
             padding: 8px 0;
-        }
-        .admin-panel {
-            padding: 1.25rem;
         }
         .whatsapp-float {
             width: 50px;
@@ -691,52 +615,10 @@ tailwind.config = {
     </div>
 </nav>
 
-<!-- Botón Flotante de WhatsApp Mejorado -->
+<!-- Botón Flotante de WhatsApp -->
 <a href="https://api.whatsapp.com/send?phone=54903543546389" target="_blank" class="whatsapp-float" title="Contactar por WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
-
-<!-- Admin Trigger Button -->
-<div class="admin-trigger" onclick="showAdminLogin()" title="Administración">
-    <i class="fa-solid fa-cog text-white text-sm"></i>
-</div>
-
-<!-- Admin Overlay -->
-<div class="admin-overlay" onclick="closeAdminPanel()"></div>
-
-<!-- Admin Panel -->
-<div class="admin-panel" id="adminPanel">
-    <div class="text-center mb-6">
-        <h3 class="text-2xl font-bold text-white mb-2">Panel de Administración</h3>
-        <p class="text-gray-400 text-sm">Gestión de Precios</p>
-    </div>
-    
-    <div id="adminLogin">
-        <div class="form-field">
-            <label class="field-label">Clave de Acceso</label>
-            <input type="password" id="adminPassword" class="field-input" placeholder="Ingrese la clave">
-        </div>
-        <button onclick="verifyAdmin()" class="btn-primary w-full py-3 rounded-xl mt-4">
-            <i class="fa-solid fa-lock mr-2"></i> Acceder
-        </button>
-        <button onclick="closeAdminPanel()" class="w-full py-3 mt-2 text-gray-400 hover:text-white transition">
-            Cancelar
-        </button>
-    </div>
-    
-    <div id="adminContent" style="display: none;">
-        <div class="form-field">
-            <label class="field-label">Precio Prueba Hidráulica ($)</label>
-            <input type="number" id="priceInput" class="field-input" placeholder="30000">
-        </div>
-        <button onclick="savePrice()" class="btn-primary w-full py-3 rounded-xl mt-4">
-            <i class="fa-solid fa-save mr-2"></i> Guardar Cambios
-        </button>
-        <button onclick="logoutAdmin()" class="w-full py-3 mt-2 text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-sign-out-alt mr-2"></i> Cerrar Sesión
-        </button>
-    </div>
-</div>
 
 <!-- HERO SECTION -->
 <header class="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden">
@@ -748,7 +630,7 @@ tailwind.config = {
     <div class="container mx-auto px-4 relative z-10 text-center">
         
         <h1 class="font-display font-black text-4xl md:text-6xl lg:text-7xl leading-tight glow-text mb-6" data-aos="fade-up">
-            TALLER VICAN GNC<br><span class="gradient-text">FC RACING TUNE MOTOS</span>
+            TALLER VICAN GNC<br><span class="gradient-text">FC RACING TUNE MOTOS AUTOS Y CAMIONETAS</span>
         </h1>
         
         <div class="hero-logo-wrapper" data-aos="zoom-in" data-aos-delay="200">
@@ -771,15 +653,12 @@ tailwind.config = {
     </div>
 </header>
 
-<!-- SECCIÓN: PRUEBA HIDRÁULICA (Efecto Scrolling / Parallax) -->
+<!-- SECCIÓN: OBLEA PRUEBA HIDRÁULICA Y SERVICE GNC -->
 <section class="relative py-32 min-h-[90vh] flex items-center justify-center parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=1920'); box-shadow: inset 0 0 0 2000px rgba(0,0,0,0.5);">
     <div class="container mx-auto px-4 text-center z-10">
         <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg" data-aos="fade-down">
-            PRUEBA HIDRÁULICA
+            OBLEA PRUEBA HIDRÁULICA Y SERVICE GNC
         </h2>
-        <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto drop-shadow-md" data-aos="fade-up">
-            Obligatoria cada 5 años. Renovamos tu oblea y verificamos la seguridad de tu equipo de GNC. No dejes que se venza lo realizamos en 24 hs Valor <span id="dynamicPrice" class="price-display">$30.000</span> pesos.
-        </p>
         
         <div class="flex justify-center" data-aos="zoom-in" data-aos-delay="300">
             <a href="https://api.whatsapp.com/send?phone=543543546389&text=Hola%20quiero%20PEDIR%20MI%20OBLEA.%20AHI%20AGREGO%20MIS%20DATOS%20DE%20DNI%20Y%20CEDULA%20VERDE.%20Adjunto%20imagenes%20del%20DNI%20(FRENTE%20Y%20DORSO)%20y%20TARJETA%20VERDE%20(FRENTE%20Y%20DORSO)." target="_blank" class="btn-circular-action">
@@ -832,9 +711,9 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="Inyección Electrónica y Bujías.png" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Inyección Electrónica y Bujías">
+                        <img src="Inyección Electrónica y Bujías.png" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Inyección Electrónica">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Inyección Electrónica y Bujías</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">INYECCIÓN ELECTRÓNICA,REMAPEOS,LIMPIEZA DE INYECTORES COMUNES Y GDI,TSI,MSI</h3>
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="300">
                     <div class="overflow-hidden rounded-xl mb-4">
@@ -856,9 +735,9 @@ tailwind.config = {
                 </div>
                 <div class="glass-card p-6 text-center group" data-aos="fade-up" data-aos-delay="600">
                     <div class="overflow-hidden rounded-xl mb-4">
-                        <img src="Lubricentro y Aceite.png" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Lubricentro y Aceite">
+                        <img src="Lubricentro y Aceite.png" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500 card-img-anim" alt="Cambio de Aceite y Filtro">
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Lubricentro y Aceite</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">CAMBIO DE ACEITE Y FILTRO</h3>
                 </div>
             </div>
         </div>
@@ -1093,9 +972,6 @@ tailwind.config = {
             <a href="https://www.instagram.com/vicangnc_salsipuedes/" target="_blank" class="text-gray-400 hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
             <a href="https://api.whatsapp.com/send?phone=543543546389" target="_blank" class="text-gray-400 hover:text-[#25D366] transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
             <a href="https://maps.app.goo.gl/gi2Y3khgb7J4ukEN9" target="_blank" class="text-gray-400 hover:text-[#FF3535] transition"><i class="fa-solid fa-location-dot text-xl"></i></a>
-            <button onclick="showAdminLogin()" class="text-gray-400 hover:text-[#FF3535] transition" title="Administración">
-                <i class="fa-solid fa-cog text-xl"></i>
-            </button>
         </div>
     </div>
 </footer>
@@ -1103,114 +979,10 @@ tailwind.config = {
 <!-- Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // ============================================
-    // --- GESTIÓN DE VERSIÓN PARA ACTUALIZACIONES ---
-    // ============================================
-    // ¡Importante! Actualiza este número manualmente en el código fuente 
-    // cuando quieras forzar una actualización global en TODOS los dispositivos.
-    const codeVersion = '1.0'; 
-    
-    // Verificación al cargar: si la versión del código es diferente a la almacenada, limpiamos cache
-    if (localStorage.getItem('appVersion') !== codeVersion) {
-        localStorage.clear(); // Limpia datos viejos (productos, precios, etc.)
-        localStorage.setItem('appVersion', codeVersion);
-        console.log(`Cache local limpiada. Nueva versión: ${codeVersion}`);
-    }
-
-    // Inicializar precio por defecto si no existe (después de posible clear)
-    if (!localStorage.getItem('tallerVicanGNC_price')) {
-        localStorage.setItem('tallerVicanGNC_price', '30000');
-    }
-
     AOS.init({
         duration: 800,
         once: true,
         offset: 100,
-    });
-
-    // Admin Panel Functions
-    const ADMIN_PASSWORD = 'GNC001';
-    const PRICE_STORAGE_KEY = 'tallerVicanGNC_price';
-    
-    function showAdminLogin() {
-        document.getElementById('adminPanel').classList.add('active');
-        document.querySelector('.admin-overlay').classList.add('active');
-        document.getElementById('adminLogin').style.display = 'block';
-        document.getElementById('adminContent').style.display = 'none';
-        document.getElementById('adminPassword').value = '';
-    }
-    
-    function closeAdminPanel() {
-        document.getElementById('adminPanel').classList.remove('active');
-        document.querySelector('.admin-overlay').classList.remove('active');
-    }
-    
-    function verifyAdmin() {
-        const password = document.getElementById('adminPassword').value;
-        if (password === ADMIN_PASSWORD) {
-            document.getElementById('adminLogin').style.display = 'none';
-            document.getElementById('adminContent').style.display = 'block';
-            const currentPrice = localStorage.getItem(PRICE_STORAGE_KEY) || '30000';
-            document.getElementById('priceInput').value = currentPrice;
-        } else {
-            alert('Clave incorrecta');
-            document.getElementById('adminPassword').value = '';
-        }
-    }
-    
-    function savePrice() {
-        const newPrice = document.getElementById('priceInput').value;
-        if (newPrice && !isNaN(newPrice)) {
-            // 1. Obtener versión actual e incrementarla automáticamente
-            let currentVer = localStorage.getItem('appVersion') || '1.0';
-            let parts = currentVer.split('.').map(Number);
-            parts[parts.length - 1]++; // Incrementa el último número (ej: 1.0 -> 1.1)
-            let newVersion = parts.join('.');
-
-            // 2. Limpiar el dato anterior (como solicitado)
-            localStorage.clear();
-
-            // 3. Guardar la nueva versión y el nuevo precio
-            localStorage.setItem('appVersion', newVersion);
-            localStorage.setItem(PRICE_STORAGE_KEY, newPrice);
-
-            console.log(`Cache local limpiada. Nueva versión: ${newVersion}`);
-            
-            updatePriceDisplay();
-            alert(`Precio actualizado correctamente.\nNueva versión: ${newVersion}\n\n⚠️ NOTA IMPORTANTE:\nEste cambio se guardó en este dispositivo. Para que el nuevo precio se vea en TODOS los celulares de los clientes, debes actualizar el valor por defecto en el código fuente de esta página y cambiar 'codeVersion' a '${newVersion}'.`);
-            closeAdminPanel();
-        } else {
-            alert('Por favor ingrese un valor válido');
-        }
-    }
-    
-    function logoutAdmin() {
-        closeAdminPanel();
-    }
-    
-    function updatePriceDisplay() {
-        const price = localStorage.getItem(PRICE_STORAGE_KEY) || '30000';
-        const formattedPrice = '$' + parseInt(price).toLocaleString('es-AR');
-        document.getElementById('dynamicPrice').textContent = formattedPrice;
-    }
-    
-    // Load price on page load
-    window.addEventListener('DOMContentLoaded', function() {
-        updatePriceDisplay();
-        
-        // Check for price changes every second (for multi-tab sync)
-        setInterval(function() {
-            updatePriceDisplay();
-        }, 1000);
-    });
-    
-    // Listen for storage changes from other tabs
-    window.addEventListener('storage', function(e) {
-        if (e.key === PRICE_STORAGE_KEY || e.key === 'appVersion') {
-            updatePriceDisplay();
-            const newVersion = localStorage.getItem('appVersion') || '1.0';
-            console.log(`Actualización detectada. Nueva versión: ${newVersion}`);
-        }
     });
 
     function switchTab(tabId, e) {
@@ -1230,7 +1002,7 @@ tailwind.config = {
         const servicio = document.getElementById('auto-servicio').value;
         const detalle = document.getElementById('auto-detalle').value || "Sin detalles";
 
-        const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗
+        const msg = ` *NUEVA CONSULTA - AUTO/GNC* 🚗
 
 👤 *Nombre:* ${nombre}
 🚗 *Vehículo:* ${modelo}
@@ -1248,13 +1020,13 @@ tailwind.config = {
         const causa = document.getElementById('moto-causa').value;
         const detalle = document.getElementById('moto-detalle').value || "Sin detalles";
 
-        const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* 🏍️
+        const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* ️
 
 👤 *Nombre:* ${nombre}
 🏍️ *Marca/Modelo:* ${modelo}
 🛣️ *Kilometraje:* ${km} km
 ⚠️ *Problema reportado:* ${causa}
-📝 *Comentarios:* ${detalle}`;
+ *Comentarios:* ${detalle}`;
         
         window.open(`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank');
     }

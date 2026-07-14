@@ -612,10 +612,10 @@ tailwind.config = {
         <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
         <span class="ticker-item"> DIFICULTODES AL PASAR DE NAFTA A GAS</span>
-        <span class="ticker-item">🪫 PÉRDIDA DE POTENCIA</span>
+        <span class="ticker-item"> PÉRDIDA DE POTENCIA</span>
         <span class="ticker-item"> REGULA MAL O SE APAGA A GAS</span>
         <span class="ticker-item">⛽️ AUMENTO DE CONSUMO</span>
-        <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR👇</span>
+        <span class="ticker-item red-text">USA NAFTA PREMIUM, CAMBIO DE BUJIAS CADA 6 MESES, SCANEA LA UNIDAD CADA 6 MESES, PRUEBA HIDRAULICA CADA 5 AÑOS VERIFICA TU FECHA DE VENCIMIENTO, NO DEJES PASAR</span>
         <span class="ticker-item">👃 OLOR A GAS</span>
         <span class="ticker-item">🔄 DIFICULTODES AL PASAR DE NAFTA A GAS</span>
         <span class="ticker-item"> PÉRDIDA DE POTENCIA</span>
@@ -1052,15 +1052,25 @@ tailwind.config = {
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // ============================================
-    // GESTIÓN DE VERSIÓN - ACTUALIZACIÓN AUTOMÁTICA
+    // GESTIÓN DE VERSIÓN AUTOMÁTICA
     // ============================================
-    const currentVersion = '1.1'; // ¡Importante! Actualiza este número con cada cambio de precios o funcionalidad.
     
-    if (localStorage.getItem('appVersion') !== currentVersion) {
-        localStorage.clear(); // Limpia datos viejos (precios, etc.)
-        localStorage.setItem('appVersion', currentVersion);
-        console.log(`Cache local limpiada. Nueva versión: ${currentVersion}`);
+    // Función para obtener la versión actual desde localStorage
+    function getCurrentVersion() {
+        return localStorage.getItem('appVersion') || '1.0';
     }
+    
+    // Función para incrementar la versión automáticamente
+    function incrementVersion(version) {
+        const parts = version.split('.').map(Number);
+        // Incrementar el último número (ej: 1.1 -> 1.2, 1.9 -> 1.10)
+        parts[parts.length - 1]++;
+        return parts.join('.');
+    }
+    
+    // Verificar y actualizar versión al cargar la página
+    const storedVersion = getCurrentVersion();
+    console.log(`Versión actual cargada: ${storedVersion}`);
     
     AOS.init({
         duration: 800,
@@ -1101,9 +1111,18 @@ tailwind.config = {
     function savePrice() {
         const newPrice = document.getElementById('priceInput').value;
         if (newPrice && !isNaN(newPrice)) {
+            // Guardar el nuevo precio
             localStorage.setItem(PRICE_STORAGE_KEY, newPrice);
+            
+            // Incrementar automáticamente la versión
+            const currentVersion = getCurrentVersion();
+            const newVersion = incrementVersion(currentVersion);
+            localStorage.setItem('appVersion', newVersion);
+            
+            console.log(`Precio actualizado. Nueva versión: ${newVersion}`);
+            
             updatePriceDisplay();
-            alert('Precio actualizado correctamente');
+            alert(`Precio actualizado correctamente\nVersión: ${newVersion}`);
             closeAdminPanel();
         } else {
             alert('Por favor ingrese un valor válido');
@@ -1132,8 +1151,10 @@ tailwind.config = {
     
     // Listen for storage changes from other tabs
     window.addEventListener('storage', function(e) {
-        if (e.key === PRICE_STORAGE_KEY) {
+        if (e.key === PRICE_STORAGE_KEY || e.key === 'appVersion') {
             updatePriceDisplay();
+            const newVersion = localStorage.getItem('appVersion') || '1.0';
+            console.log(`Actualización detectada. Nueva versión: ${newVersion}`);
         }
     });
 
@@ -1157,7 +1178,7 @@ tailwind.config = {
         const msg = `🚗 *NUEVA CONSULTA - AUTO/GNC* 🚗
 
 👤 *Nombre:* ${nombre}
- *Vehículo:* ${modelo}
+🚗 *Vehículo:* ${modelo}
 ️ *Kilometraje:* ${km} km
 🔧 *Servicio:* ${servicio}
 📝 *Detalle:* ${detalle}`;
@@ -1172,7 +1193,7 @@ tailwind.config = {
         const causa = document.getElementById('moto-causa').value;
         const detalle = document.getElementById('moto-detalle').value || "Sin detalles";
 
-        const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* ️
+        const msg = `🏍️ *NUEVA CONSULTA - MOTO (FC RACING TUNE)* 🏍️
 
 👤 *Nombre:* ${nombre}
 🏍️ *Marca/Modelo:* ${modelo}

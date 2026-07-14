@@ -1052,26 +1052,25 @@ tailwind.config = {
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     // ============================================
-    // GESTIÓN DE VERSIÓN AUTOMÁTICA
+    // --- GESTIÓN DE VERSIÓN PARA ACTUALIZACIONES ---
     // ============================================
+    // ¡Importante! Actualiza este número con cada cambio de precios o funcionalidad manual en el código.
+    const baseVersion = '1.0'; 
     
-    // Función para obtener la versión actual desde localStorage
-    function getCurrentVersion() {
-        return localStorage.getItem('appVersion') || '1.0';
+    // Obtenemos la versión actual del localStorage o usamos la base
+    let currentVersion = localStorage.getItem('appVersion') || baseVersion;
+
+    // Verificación al cargar: si el desarrollador actualizó la versión base en el código, limpiamos el cache
+    if (localStorage.getItem('appVersion') !== baseVersion && localStorage.getItem('appVersion') !== null) {
+        localStorage.clear(); // Limpia datos viejos (productos, precios, etc.)
+        localStorage.setItem('appVersion', baseVersion);
+        currentVersion = baseVersion;
+        console.log(`Cache local limpiada por actualización manual. Nueva versión: ${currentVersion}`);
+    } else if (localStorage.getItem('appVersion') === null) {
+        localStorage.setItem('appVersion', currentVersion);
+        console.log(`Versión inicial establecida: ${currentVersion}`);
     }
-    
-    // Función para incrementar la versión automáticamente
-    function incrementVersion(version) {
-        const parts = version.split('.').map(Number);
-        // Incrementar el último número (ej: 1.1 -> 1.2, 1.9 -> 1.10)
-        parts[parts.length - 1]++;
-        return parts.join('.');
-    }
-    
-    // Verificar y actualizar versión al cargar la página
-    const storedVersion = getCurrentVersion();
-    console.log(`Versión actual cargada: ${storedVersion}`);
-    
+
     AOS.init({
         duration: 800,
         once: true,
@@ -1111,18 +1110,21 @@ tailwind.config = {
     function savePrice() {
         const newPrice = document.getElementById('priceInput').value;
         if (newPrice && !isNaN(newPrice)) {
-            // Guardar el nuevo precio
-            localStorage.setItem(PRICE_STORAGE_KEY, newPrice);
+            // --- LÓGICA DE VERSIÓN AUTOMÁTICA ---
+            let ver = localStorage.getItem('appVersion') || '1.0';
+            const parts = ver.split('.').map(Number);
+            parts[parts.length - 1]++; // Incrementa automáticamente (ej: 1.0 -> 1.1)
+            const newVersion = parts.join('.');
             
-            // Incrementar automáticamente la versión
-            const currentVersion = getCurrentVersion();
-            const newVersion = incrementVersion(currentVersion);
+            localStorage.clear(); // Limpia datos viejos (productos, precios, etc.)
             localStorage.setItem('appVersion', newVersion);
+            localStorage.setItem(PRICE_STORAGE_KEY, newPrice); // Guardamos el nuevo precio después de limpiar
             
-            console.log(`Precio actualizado. Nueva versión: ${newVersion}`);
+            console.log(`Cache local limpiada. Nueva versión: ${newVersion}`);
+            // ------------------------------------
             
             updatePriceDisplay();
-            alert(`Precio actualizado correctamente\nVersión: ${newVersion}`);
+            alert(`Precio actualizado correctamente.\nNueva versión: ${newVersion}`);
             closeAdminPanel();
         } else {
             alert('Por favor ingrese un valor válido');

@@ -1054,21 +1054,20 @@ tailwind.config = {
     // ============================================
     // --- GESTIÓN DE VERSIÓN PARA ACTUALIZACIONES ---
     // ============================================
-    // ¡Importante! Actualiza este número con cada cambio de precios o funcionalidad manual en el código.
-    const baseVersion = '1.0'; 
+    // ¡Importante! Actualiza este número manualmente en el código fuente 
+    // cuando quieras forzar una actualización global en TODOS los dispositivos.
+    const codeVersion = '1.0'; 
     
-    // Obtenemos la versión actual del localStorage o usamos la base
-    let currentVersion = localStorage.getItem('appVersion') || baseVersion;
-
-    // Verificación al cargar: si el desarrollador actualizó la versión base en el código, limpiamos el cache
-    if (localStorage.getItem('appVersion') !== baseVersion && localStorage.getItem('appVersion') !== null) {
+    // Verificación al cargar: si la versión del código es diferente a la almacenada, limpiamos cache
+    if (localStorage.getItem('appVersion') !== codeVersion) {
         localStorage.clear(); // Limpia datos viejos (productos, precios, etc.)
-        localStorage.setItem('appVersion', baseVersion);
-        currentVersion = baseVersion;
-        console.log(`Cache local limpiada por actualización manual. Nueva versión: ${currentVersion}`);
-    } else if (localStorage.getItem('appVersion') === null) {
-        localStorage.setItem('appVersion', currentVersion);
-        console.log(`Versión inicial establecida: ${currentVersion}`);
+        localStorage.setItem('appVersion', codeVersion);
+        console.log(`Cache local limpiada. Nueva versión: ${codeVersion}`);
+    }
+
+    // Inicializar precio por defecto si no existe (después de posible clear)
+    if (!localStorage.getItem('tallerVicanGNC_price')) {
+        localStorage.setItem('tallerVicanGNC_price', '30000');
     }
 
     AOS.init({
@@ -1110,21 +1109,23 @@ tailwind.config = {
     function savePrice() {
         const newPrice = document.getElementById('priceInput').value;
         if (newPrice && !isNaN(newPrice)) {
-            // --- LÓGICA DE VERSIÓN AUTOMÁTICA ---
-            let ver = localStorage.getItem('appVersion') || '1.0';
-            const parts = ver.split('.').map(Number);
-            parts[parts.length - 1]++; // Incrementa automáticamente (ej: 1.0 -> 1.1)
-            const newVersion = parts.join('.');
-            
-            localStorage.clear(); // Limpia datos viejos (productos, precios, etc.)
+            // 1. Obtener versión actual e incrementarla automáticamente
+            let currentVer = localStorage.getItem('appVersion') || '1.0';
+            let parts = currentVer.split('.').map(Number);
+            parts[parts.length - 1]++; // Incrementa el último número (ej: 1.0 -> 1.1)
+            let newVersion = parts.join('.');
+
+            // 2. Limpiar el dato anterior (como solicitado)
+            localStorage.clear();
+
+            // 3. Guardar la nueva versión y el nuevo precio
             localStorage.setItem('appVersion', newVersion);
-            localStorage.setItem(PRICE_STORAGE_KEY, newPrice); // Guardamos el nuevo precio después de limpiar
-            
+            localStorage.setItem(PRICE_STORAGE_KEY, newPrice);
+
             console.log(`Cache local limpiada. Nueva versión: ${newVersion}`);
-            // ------------------------------------
             
             updatePriceDisplay();
-            alert(`Precio actualizado correctamente.\nNueva versión: ${newVersion}`);
+            alert(`Precio actualizado correctamente.\nNueva versión: ${newVersion}\n\n⚠️ NOTA IMPORTANTE:\nEste cambio se guardó en este dispositivo. Para que el nuevo precio se vea en TODOS los celulares de los clientes, debes actualizar el valor por defecto en el código fuente de esta página y cambiar 'codeVersion' a '${newVersion}'.`);
             closeAdminPanel();
         } else {
             alert('Por favor ingrese un valor válido');

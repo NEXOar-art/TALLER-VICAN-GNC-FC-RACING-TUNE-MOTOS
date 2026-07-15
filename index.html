@@ -813,6 +813,26 @@ tailwind.config = {
     </div>
 </section>
 
+<!-- SECCIÓN: VIDEO TALLER VICAN -->
+<section id="video-taller" class="py-16 bg-[#0A0A0A] relative z-10 border-t border-white/5">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-5xl font-display font-bold gradient-text uppercase mb-8 drop-shadow-lg" data-aos="fade-up">TALLER VICAN</h2>
+        <div class="max-w-sm md:max-w-md mx-auto glass-card p-2" data-aos="zoom-in">
+            <div class="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-black shadow-2xl">
+                <iframe 
+                    id="tallerVideo"
+                    class="w-full h-full"
+                    src="https://www.youtube.com/embed/doIqkAQ0so8?rel=0&modestbranding=1"
+                    title="Taller Vican GNC"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- SECCIÓN: FORMULARIOS DE TURNOS -->
 <section id="turnos" class="py-24 bg-gradient-to-b from-[#080808] to-[#141414] relative z-10">
     <div class="section-turnos-bg"></div>
@@ -1023,6 +1043,24 @@ tailwind.config = {
         once: true,
         offset: 100,
     });
+
+    // Video Autoplay on Scroll
+    const videoSection = document.getElementById('video-taller');
+    const iframe = document.getElementById('tallerVideo');
+    
+    if (videoSection && iframe) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!iframe.src.includes('autoplay=1')) {
+                        iframe.src = iframe.src + "&autoplay=1&mute=1&loop=1&playlist=doIqkAQ0so8";
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(videoSection);
+    }
 
     function switchTab(tabId, e) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
